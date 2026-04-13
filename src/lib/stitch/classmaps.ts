@@ -24,7 +24,7 @@ type FooterSkin = {
 const navSkinRegistry: Record<NavIdentity, NavSkin> = {
   architectural: {
     shell: "fixed top-0 w-full z-50 bg-stone-100/90 backdrop-blur-xl border-b border-stone-200",
-    inner: "flex justify-between items-center w-full px-12 py-3 max-w-[1920px] mx-auto",
+    inner: "flex justify-between items-center w-full px-4 sm:px-6 md:px-12 py-3 max-w-[1920px] mx-auto",
     logo: "text-2xl font-black tracking-tighter text-stone-900",
     links: "hidden md:flex items-center gap-10",
     activeLink:
@@ -44,7 +44,7 @@ const navSkinRegistry: Record<NavIdentity, NavSkin> = {
   },
   inquiry: {
     shell: "fixed top-0 w-full z-50 bg-stone-50/80 backdrop-blur-md",
-    inner: "flex justify-between items-center max-w-7xl mx-auto px-12 py-3",
+    inner: "flex justify-between items-center max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-3",
     logo: "text-2xl font-black tracking-tighter text-stone-900",
     links: "hidden md:flex items-center space-x-12",
     activeLink:
@@ -58,22 +58,22 @@ const navSkinRegistry: Record<NavIdentity, NavSkin> = {
 const footerSkinRegistry: Record<FooterIdentity, FooterSkin> = {
   "dark-grid": {
     shell: "bg-stone-950 w-full rounded-none border-t border-stone-800/50",
-    grid: "grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-20 w-full max-w-[1920px] mx-auto",
+    grid: "grid grid-cols-1 md:grid-cols-4 gap-12 px-5 sm:px-8 md:px-12 py-20 w-full max-w-[1920px] mx-auto",
     brand: "text-xl font-bold tracking-widest text-white uppercase",
     heading: "text-stone-50 font-bold uppercase text-xs tracking-widest",
     body: "font-body text-sm leading-relaxed tracking-wide text-stone-500",
     copy: "font-body text-xs tracking-wide text-stone-600",
-    divider: "px-12 py-8 border-t border-stone-900 flex flex-col md:flex-row justify-between items-center gap-4",
+    divider: "px-5 sm:px-8 md:px-12 py-8 border-t border-stone-900 flex flex-col md:flex-row justify-between items-center gap-4",
     iconBox: "w-10 h-10 border border-stone-800 flex items-center justify-center hover:bg-stone-50 hover:text-stone-950 transition-all text-stone-500",
   },
   "light-grid": {
     shell: "w-full border-t border-stone-200 bg-stone-100",
-    grid: "grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl mx-auto px-12 py-20",
+    grid: "grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl mx-auto px-5 sm:px-8 md:px-12 py-20",
     brand: "font-headline font-bold text-lg tracking-tighter text-stone-900 uppercase",
     heading: "font-headline uppercase tracking-widest text-[11px] font-bold text-stone-900",
     body: "font-body text-sm leading-relaxed text-stone-500",
     copy: "font-body text-[10px] leading-relaxed text-stone-400",
-    divider: "max-w-7xl mx-auto px-12 py-8 border-t border-stone-200/50",
+    divider: "max-w-7xl mx-auto px-5 sm:px-8 md:px-12 py-8 border-t border-stone-200/50",
     iconBox: "w-8 h-8 flex items-center justify-center border border-stone-300 hover:border-stone-900 transition-colors text-stone-500",
   },
   "minimal-bar": {

@@ -241,7 +241,7 @@ export function ArchitecturalHomePage() {
   return (
     <StitchPageFrame signature="architectural-home" className="bg-surface-container-low text-on-surface">
       <main>
-        <SectionWave profile="hero" className="relative h-screen flex items-center overflow-hidden">
+        <SectionWave profile="hero" className="relative min-h-[100svh] pt-24 md:pt-0 flex items-start md:items-center overflow-hidden">
           {({ itemVariants }) => (
             <>
               <div className="absolute inset-0 z-0">
@@ -256,36 +256,35 @@ export function ArchitecturalHomePage() {
                 <div className="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/40 to-transparent" />
               </div>
 
-              <div className="relative z-10 px-12 md:px-24 w-full max-w-7xl pt-12 md:pt-16">
+              <div className="relative z-10 px-5 sm:px-8 md:px-24 w-full max-w-7xl pt-6 sm:pt-10 md:pt-16 pb-10 md:pb-0">
                 <motion.span
                   variants={itemVariants}
                   className="label-sm uppercase tracking-[0.2em] text-tertiary-fixed mb-6 block font-medium"
                 >
                   
                 </motion.span>
-                <motion.h1
-                  variants={itemVariants}
-                  className="font-copper-black hero-title-elegant text-5xl md:text-8xl leading-tight text-white mb-8"
+                <h1
+                  className="font-copper-black hero-title-elegant text-4xl sm:text-5xl md:text-8xl leading-tight text-white mb-8"
                 >
                   Elevating Cafes &amp;
                   <br />
                   Restaurants
-                </motion.h1>
+                </h1>
                 <motion.p
                   variants={itemVariants}
-                  className="font-cavolini text-stone-300 text-xl md:text-2xl max-w-xl mb-12 leading-relaxed tracking-[0.01em]"
+                  className="font-cavolini text-stone-300 text-lg sm:text-xl md:text-2xl max-w-xl mb-10 md:mb-12 leading-relaxed tracking-[0.01em]"
                 >
                  We transform ambitious cafes and restaurants from owner-dependent shops into system-driven, scalable brands through uncompromising operational standards.
                 </motion.p>
 
                 <motion.div
                   variants={itemVariants}
-                  className="flex flex-col md:flex-row items-start md:items-center gap-12 py-10 border-y border-white/10 max-w-3xl"
+                  className="flex flex-col md:flex-row items-start md:items-center gap-6 sm:gap-8 md:gap-12 py-6 sm:py-8 md:py-10 border-y border-white/10 max-w-3xl"
                 >
                   {headlineStats.map((stat, index) => (
                     <motion.div
                       key={stat.label}
-                      className="flex items-center gap-12"
+                      className="flex items-center gap-6 md:gap-12"
                       layout
                       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                     >
@@ -306,16 +305,16 @@ export function ArchitecturalHomePage() {
           )}
         </SectionWave>
 
-        <SectionWave profile="editorial" className="py-32 bg-stone-200 overflow-hidden">
+        <SectionWave profile="editorial" className="py-20 md:py-32 bg-stone-200 overflow-hidden">
           {({ itemVariants }) => (
-            <div className="max-w-[1920px] mx-auto px-12 md:px-24">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
+            <div className="max-w-[1920px] mx-auto px-5 sm:px-8 md:px-24">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-24 items-center">
                 <div className="lg:col-span-5">
                   <motion.div variants={itemVariants} className="mb-16">
                     <span className="text-stone-600 font-bold tracking-widest text-xs uppercase mb-4 block">
                       
                     </span>
-                    <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-stone-900 leading-none mb-6">
+                    <h2 className="font-headline text-3xl sm:text-4xl md:text-5xl font-extrabold text-stone-900 leading-none mb-6">
                       Vision • Build • Standardize
                     </h2>
                     <b> RASA VISION </b>
@@ -326,9 +325,9 @@ Build India's largest restaurant operations intelligence network
               </p>
                   </motion.div>
 
-                  <div className="space-y-12">
+                  <div className="space-y-8 md:space-y-12">
                     {services.map(({ Icon, title, detail }) => (
-                      <motion.div key={title} variants={itemVariants} className="flex gap-6 group">
+                      <motion.div key={title} variants={itemVariants} className="flex gap-4 md:gap-6 group">
                         <div className="w-12 h-12 bg-stone-300 flex items-center justify-center shadow-sm group-hover:bg-stone-800 transition-colors duration-300">
                           <Icon className="h-5 w-5 text-stone-800 group-hover:text-stone-50 transition-colors" />
                         </div>
@@ -386,9 +385,9 @@ Build India's largest restaurant operations intelligence network
           )}
         </SectionWave>
 
-        <SectionWave profile="grid" className="py-32 bg-stone-100">
+        <SectionWave profile="grid" className="py-20 md:py-32 bg-stone-100">
           {({ itemVariants }) => (
-            <div className="px-12 md:px-24">
+            <div className="px-5 sm:px-8 md:px-24">
               <motion.div
                 variants={itemVariants}
                 className="flex flex-col md:flex-row justify-between items-end mb-20"
@@ -414,7 +413,7 @@ Build India's largest restaurant operations intelligence network
 
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 h-auto">
                 <motion.div variants={itemVariants} className="md:col-span-8 group overflow-hidden">
-                  <div className="relative h-[600px] bg-stone-200 overflow-hidden">
+                  <div className="relative h-[420px] sm:h-[520px] md:h-[600px] bg-stone-200 overflow-hidden">
                     <motion.img
                       alt="Modern minimalist restaurant"
                       className="w-full h-full object-cover"
@@ -463,7 +462,7 @@ Build India's largest restaurant operations intelligence network
           )}
         </SectionWave>
 
-        <SectionWave profile="cta" className="py-32 bg-stone-900 text-stone-50 relative overflow-hidden">
+        <SectionWave profile="cta" className="py-20 md:py-32 bg-stone-900 text-stone-50 relative overflow-hidden">
           {({ itemVariants }) => (
             <>
               <div className="absolute top-0 right-0 w-1/3 h-full opacity-5 pointer-events-none">
@@ -472,7 +471,7 @@ Build India's largest restaurant operations intelligence network
                 </svg>
               </div>
 
-              <div className="px-12 md:px-24 relative z-10 text-center max-w-4xl mx-auto">
+              <div className="px-5 sm:px-8 md:px-24 relative z-10 text-center max-w-4xl mx-auto">
                 <motion.h2
                   variants={itemVariants}
                   className="font-headline text-4xl md:text-6xl font-extrabold mb-8 tracking-tighter"

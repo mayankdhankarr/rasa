@@ -13,7 +13,7 @@ type MotionProfile = {
 const easing: Transition["ease"] = [0.22, 1, 0.36, 1];
 
 const profileRegistry: Record<MotionProfileKey, MotionProfile> = {
-  hero: { drift: 36, duration: 0.9, stagger: 0.12, delay: 0.05, viewportAmount: 0.25 },
+  hero: { drift: 24, duration: 0.7, stagger: 0.08, delay: 0.03, viewportAmount: 0.25 },
   editorial: { drift: 28, duration: 0.78, stagger: 0.1, delay: 0.03, viewportAmount: 0.3 },
   grid: { drift: 22, duration: 0.72, stagger: 0.08, delay: 0.02, viewportAmount: 0.22 },
   rail: { drift: 18, duration: 0.64, stagger: 0.07, delay: 0.02, viewportAmount: 0.2 },
@@ -21,18 +21,16 @@ const profileRegistry: Record<MotionProfileKey, MotionProfile> = {
 };
 
 export const pagePresenceVariants: Variants = {
-  initial: { opacity: 0, y: 20, filter: "blur(6px)" },
+  initial: { opacity: 0, y: 14 },
   animate: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.58, ease: easing, when: "beforeChildren", staggerChildren: 0.03 },
+    transition: { duration: 0.42, ease: easing, when: "beforeChildren", staggerChildren: 0.02 },
   },
   exit: {
     opacity: 0,
-    y: -14,
-    filter: "blur(8px)",
-    transition: { duration: 0.36, ease: easing },
+    y: -8,
+    transition: { duration: 0.24, ease: easing },
   },
 };
 

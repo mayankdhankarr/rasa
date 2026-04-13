@@ -38,20 +38,20 @@ export function ContactStrategyBriefPage({ contactEmail }: ContactStrategyBriefP
 
   return (
     <StitchPageFrame signature="contact-strategy-brief" className="bg-surface text-on-surface font-body antialiased">
-      <main className="pt-32 pb-24">
-        <div className="max-w-7xl mx-auto px-12">
-          <SectionWave profile="hero" className="grid grid-cols-12 gap-8 mb-20">
+      <main className="pt-[5.75rem] sm:pt-28 md:pt-32 pb-14 sm:pb-16 md:pb-24 overflow-x-clip">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+          <SectionWave profile="hero" className="grid grid-cols-12 gap-6 sm:gap-8 mb-12 sm:mb-16 md:mb-20">
             {({ itemVariants }) => (
-              <motion.div variants={itemVariants} className="col-span-12 md:col-span-7">
+              <motion.div variants={itemVariants} className="col-span-12 md:col-span-7 min-w-0">
                 <span className="font-label text-[10px] uppercase tracking-[0.2em] text-tertiary font-bold mb-4 block">
                   Strategic Inquiry
                 </span>
-                <h1 className="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter leading-none text-on-surface mb-8">
+                <h1 className="font-headline text-3xl sm:text-5xl md:text-7xl font-extrabold tracking-tighter leading-none text-on-surface mb-6 sm:mb-8">
                   Elevate your operational
                   <br />
                   <span className="text-outline">architecture.</span>
                 </h1>
-                <p className="font-body text-xl text-on-surface-variant leading-relaxed max-w-xl">
+                <p className="font-body text-base sm:text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-xl break-words">
                   Connect with our consultants to discuss bespoke scaling strategies and precision
                   management frameworks.
                 </p>
@@ -59,18 +59,18 @@ export function ContactStrategyBriefPage({ contactEmail }: ContactStrategyBriefP
             )}
           </SectionWave>
 
-          <SectionWave profile="grid" className="grid grid-cols-12 gap-16 items-start">
+          <SectionWave profile="grid" className="grid grid-cols-12 gap-8 sm:gap-10 md:gap-16 items-start">
             {({ itemVariants }) => (
               <>
-                <motion.div variants={itemVariants} className="col-span-12 lg:col-span-7">
-                  <div className="relative overflow-hidden border border-outline-variant/35 bg-gradient-to-br from-surface-container-lowest via-surface-container-low to-surface-container-lowest p-8 md:p-12 shadow-[0px_24px_55px_rgba(45,52,53,0.08)]">
+                <motion.div variants={itemVariants} className="col-span-12 lg:col-span-7 min-w-0">
+                  <div className="relative overflow-hidden border border-outline-variant/35 bg-gradient-to-br from-surface-container-lowest via-surface-container-low to-surface-container-lowest p-4 sm:p-6 md:p-12 shadow-[0px_24px_55px_rgba(45,52,53,0.08)]">
                     <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-tertiary/50 via-primary/60 to-tertiary/50" />
 
                     <form
                       method="post"
                       action="/contact/strategy-brief"
                       onSubmit={onSubmit}
-                      className="space-y-8"
+                      className="space-y-6 sm:space-y-8"
                       noValidate
                     >
                       <div className="hidden" aria-hidden="true">
@@ -88,7 +88,7 @@ export function ContactStrategyBriefPage({ contactEmail }: ContactStrategyBriefP
                         <span className="font-label text-[10px] uppercase tracking-[0.18em] text-tertiary font-bold block mb-2">
                           Contact Brief Form
                         </span>
-                        <h3 className="font-headline text-2xl md:text-3xl font-extrabold tracking-tight text-on-surface mb-2">
+                        <h3 className="font-headline text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-on-surface mb-2">
                           Share your growth objectives
                         </h3>
                         <p className="text-sm text-on-surface-variant leading-relaxed max-w-xl">
@@ -97,7 +97,7 @@ export function ContactStrategyBriefPage({ contactEmail }: ContactStrategyBriefP
                         </p>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 md:gap-10">
                         <div className="space-y-2">
                           <label className={fieldLabelClassName}>
                             Name
@@ -137,7 +137,7 @@ export function ContactStrategyBriefPage({ contactEmail }: ContactStrategyBriefP
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 md:gap-10">
                         <div className="space-y-2">
                           <label className={fieldLabelClassName}>
                             Corporate Email
@@ -243,7 +243,7 @@ export function ContactStrategyBriefPage({ contactEmail }: ContactStrategyBriefP
                   </div>
                 </motion.div>
 
-                <motion.aside variants={itemVariants} className="col-span-12 lg:col-span-5 space-y-12">
+                <motion.aside variants={itemVariants} className="col-span-12 lg:col-span-5 min-w-0 space-y-6 sm:space-y-8 md:space-y-12">
                   <div className="aspect-[4/3] w-full overflow-hidden grayscale opacity-80 hover:grayscale-0 transition-all duration-700">
                     <img
                       className="w-full h-full object-cover"
@@ -255,13 +255,13 @@ export function ContactStrategyBriefPage({ contactEmail }: ContactStrategyBriefP
                   </div>
 
                   <div className="grid grid-cols-1 gap-8">
-                    <div className="group border-l border-outline-variant/30 pl-8 py-2">
+                    <div className="group border-l border-outline-variant/30 pl-4 sm:pl-6 md:pl-8 py-2 min-w-0">
                       <span className="font-label text-[10px] uppercase tracking-widest text-tertiary font-bold mb-1 block">
                         Direct Messaging
                       </span>
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-start gap-3 sm:gap-4 min-w-0">
                         <MessageSquare className="h-5 w-5 text-primary" />
-                        <a className="font-headline font-bold text-2xl text-on-surface group-hover:text-tertiary transition-colors" href="#">
+                        <a className="font-headline font-bold text-lg sm:text-xl md:text-2xl break-words leading-snug text-on-surface group-hover:text-tertiary transition-colors" href="#">
                           WhatsApp Business<br></br>
                           9217143112
                         </a>
@@ -271,21 +271,21 @@ export function ContactStrategyBriefPage({ contactEmail }: ContactStrategyBriefP
                       </p>
                     </div>
 
-                    <div className="group border-l border-outline-variant/30 pl-8 py-2">
+                    <div className="group border-l border-outline-variant/30 pl-4 sm:pl-6 md:pl-8 py-2 min-w-0">
                       <span className="font-label text-[10px] uppercase tracking-widest text-tertiary font-bold mb-1 block">
                         General Correspondence
                       </span>
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-start gap-3 sm:gap-4 min-w-0">
                         <Mail className="h-5 w-5 text-primary" />
                         {contactHref ? (
                           <a
-                            className="font-headline font-bold text-2xl text-on-surface group-hover:text-tertiary transition-colors"
+                            className="font-headline font-bold text-base sm:text-lg md:text-2xl leading-snug break-all max-w-full text-on-surface group-hover:text-tertiary transition-colors"
                             href={contactHref}
                           >
                             {normalizedContactEmail}
                           </a>
                         ) : (
-                          <span className="font-headline font-bold text-2xl text-on-surface">
+                          <span className="font-headline font-bold text-base sm:text-lg md:text-2xl text-on-surface">
                             Contact Desk
                           </span>
                         )}
@@ -296,7 +296,7 @@ export function ContactStrategyBriefPage({ contactEmail }: ContactStrategyBriefP
                     </div>
                   </div>
 
-                  <div className="bg-tertiary-container p-8">
+                  <div className="bg-tertiary-container p-5 sm:p-6 md:p-8">
                     <div className="flex gap-4">
                       <BadgeCheck className="h-5 w-5 text-on-tertiary-fixed" />
                       <div>
@@ -318,9 +318,9 @@ export function ContactStrategyBriefPage({ contactEmail }: ContactStrategyBriefP
         </div>
       </main>
 
-      <SectionWave profile="editorial" className="max-w-7xl mx-auto px-12 mb-24">
+      <SectionWave profile="editorial" className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-16 md:mb-24">
         {({ itemVariants }) => (
-          <motion.div variants={itemVariants} className="h-[400px] w-full bg-surface-container relative overflow-hidden">
+          <motion.div variants={itemVariants} className="h-[300px] sm:h-[360px] md:h-[400px] w-full bg-surface-container relative overflow-hidden">
             <div className="absolute inset-0 grayscale opacity-40 mix-blend-multiply">
               <img
                 className="w-full h-full object-cover"
@@ -331,7 +331,7 @@ export function ContactStrategyBriefPage({ contactEmail }: ContactStrategyBriefP
               />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
-            <div className="absolute bottom-12 left-12 bg-surface-container-lowest p-8 max-w-xs shadow-xl">
+            <div className="absolute bottom-5 left-4 sm:left-6 md:bottom-12 md:left-12 bg-surface-container-lowest p-4 sm:p-5 md:p-8 max-w-[calc(100%-1.5rem)] sm:max-w-xs shadow-xl">
               <h4 className="font-headline font-bold text-lg mb-2"><b>JOIN TODAY</b></h4>
               <p className="text-on-surface-variant text-sm leading-relaxed font-body">
                 
