@@ -1,5 +1,6 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Building2, LayoutPanelTop, ShieldCheck } from "lucide-react";
+import { ArrowRight, Building2, LayoutPanelTop, Pause, Play, ShieldCheck } from "lucide-react";
 
 import { StitchPageFrame } from "@/components/common/stitch-page-frame";
 import { SectionWave } from "@/components/stitch/section-wave";
@@ -33,6 +34,210 @@ const headlineStats = [
 ];
 
 export function ArchitecturalHomePage() {
+  const videoSectionRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const soundUpgradeInFlightRef = useRef(false);
+  const [isVideoSectionVisible, setIsVideoSectionVisible] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isVideoMuted, setIsVideoMuted] = useState(false);
+
+  const playMuted = useCallback(async () => {
+    const videoElement = videoRef.current;
+    if (!videoElement) {
+      return false;
+    }
+
+    videoElement.defaultMuted = true;
+    videoElement.muted = true;
+    videoElement.volume = 0;
+
+    try {
+      await videoElement.play();
+      return true;
+    } catch {
+      return false;
+    }
+  }, []);
+
+  const playWithSound = useCallback(async () => {
+    const videoElement = videoRef.current;
+    if (!videoElement) {
+      return false;
+    }
+
+    videoElement.defaultMuted = false;
+    videoElement.muted = false;
+    videoElement.volume = 1;
+
+    try {
+      await videoElement.play();
+      return true;
+    } catch {
+      return false;
+    }
+  }, []);
+
+  const playOnSectionEntry = useCallback(async () => {
+    const playedWithSound = await playWithSound();
+    if (playedWithSound) {
+      return;
+    }
+
+    await playMuted();
+  }, [playMuted, playWithSound]);
+
+  const upgradeToSoundPlayback = useCallback(async () => {
+    const videoElement = videoRef.current;
+    if (!videoElement) {
+      return false;
+    }
+
+    videoElement.defaultMuted = false;
+    videoElement.muted = false;
+    videoElement.volume = 1;
+
+    try {
+      await videoElement.play();
+      return true;
+    } catch {
+      return false;
+    }
+  }, []);
+
+  const toggleVideoPlayback = useCallback(async () => {
+    const videoElement = videoRef.current;
+    if (!videoElement) {
+      return;
+    }
+
+    if (videoElement.paused || videoElement.ended) {
+      const playedWithSound = await playWithSound();
+      if (!playedWithSound) {
+        await playMuted();
+      }
+      return;
+    }
+
+    if (videoElement.muted || videoElement.volume === 0) {
+      await playWithSound();
+      return;
+    }
+
+    videoElement.pause();
+  }, [playMuted, playWithSound]);
+
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) {
+      return;
+    }
+
+    const syncMutedState = () => {
+      setIsVideoMuted(videoElement.muted || videoElement.volume === 0);
+    };
+
+    const handlePlay = () => {
+      setIsVideoPlaying(true);
+      syncMutedState();
+    };
+
+    const handlePause = () => {
+      setIsVideoPlaying(false);
+      syncMutedState();
+    };
+
+    const handleEnded = () => {
+      setIsVideoPlaying(false);
+      syncMutedState();
+    };
+
+    const handleVolumeChange = () => {
+      syncMutedState();
+    };
+
+    syncMutedState();
+
+    videoElement.addEventListener("play", handlePlay);
+    videoElement.addEventListener("pause", handlePause);
+    videoElement.addEventListener("ended", handleEnded);
+    videoElement.addEventListener("volumechange", handleVolumeChange);
+
+    return () => {
+      videoElement.removeEventListener("play", handlePlay);
+      videoElement.removeEventListener("pause", handlePause);
+      videoElement.removeEventListener("ended", handleEnded);
+      videoElement.removeEventListener("volumechange", handleVolumeChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    const trackedSection = videoSectionRef.current;
+    if (!trackedSection) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVideoSectionVisible(entry.isIntersecting && entry.intersectionRatio >= 0.35);
+      },
+      {
+        threshold: [0, 0.2, 0.35, 0.6, 1],
+      }
+    );
+
+    observer.observe(trackedSection);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) {
+      return;
+    }
+
+    if (!isVideoSectionVisible) {
+      videoElement.pause();
+      videoElement.currentTime = 0;
+      return;
+    }
+
+    void playOnSectionEntry();
+  }, [isVideoSectionVisible, playOnSectionEntry]);
+
+  useEffect(() => {
+    const tryUpgradeOnInteraction = () => {
+      const videoElement = videoRef.current;
+      if (!videoElement || !isVideoSectionVisible) {
+        return;
+      }
+
+      const needsUpgrade = videoElement.paused || videoElement.ended || videoElement.muted || videoElement.volume === 0;
+      if (!needsUpgrade || soundUpgradeInFlightRef.current) {
+        return;
+      }
+
+      soundUpgradeInFlightRef.current = true;
+      void upgradeToSoundPlayback().finally(() => {
+        soundUpgradeInFlightRef.current = false;
+      });
+    };
+
+    window.addEventListener("pointerdown", tryUpgradeOnInteraction, { passive: true });
+    window.addEventListener("touchstart", tryUpgradeOnInteraction, { passive: true });
+    window.addEventListener("keydown", tryUpgradeOnInteraction);
+    window.addEventListener("wheel", tryUpgradeOnInteraction, { passive: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", tryUpgradeOnInteraction);
+      window.removeEventListener("touchstart", tryUpgradeOnInteraction);
+      window.removeEventListener("keydown", tryUpgradeOnInteraction);
+      window.removeEventListener("wheel", tryUpgradeOnInteraction);
+    };
+  }, [isVideoSectionVisible, upgradeToSoundPlayback]);
+
   return (
     <StitchPageFrame signature="architectural-home" className="bg-surface-container-low text-on-surface">
       <main>
@@ -60,7 +265,7 @@ export function ArchitecturalHomePage() {
                 </motion.span>
                 <motion.h1
                   variants={itemVariants}
-                  className="font-headline text-5xl md:text-8xl font-extrabold tracking-tighter leading-tight text-white mb-8"
+                  className="font-copper-black hero-title-elegant text-5xl md:text-8xl leading-tight text-white mb-8"
                 >
                   Elevating Cafes &amp;
                   <br />
@@ -68,7 +273,7 @@ export function ArchitecturalHomePage() {
                 </motion.h1>
                 <motion.p
                   variants={itemVariants}
-                  className="text-stone-300 text-lg md:text-xl max-w-xl mb-12 font-light leading-relaxed"
+                  className="font-cavolini text-stone-300 text-xl md:text-2xl max-w-xl mb-12 leading-relaxed tracking-[0.01em]"
                 >
                  We transform ambitious cafes and restaurants from owner-dependent shops into system-driven, scalable brands through uncompromising operational standards.
                 </motion.p>
@@ -137,19 +342,41 @@ Build India's largest restaurant operations intelligence network
                 </div>
 
                 <motion.div variants={itemVariants} className="lg:col-span-7 relative">
-                  <div className="relative z-10 aspect-[4/5] md:aspect-[16/10]">
+                  <div ref={videoSectionRef} className="group relative z-10 aspect-[4/5] md:aspect-[16/10]">
                     <motion.video
+                      ref={videoRef}
                       className="w-full h-full object-cover shadow-2xl"
-                      poster="counter-poster.jpg"
-                      controls
+                      poster="/thumbnail.png"
                       playsInline
                       preload="metadata"
                       whileHover={{ scale: 1.02 }}
                       transition={{ duration: 0.7 }}
                     >
-                      <source src="counter-video.mp4" type="video/mp4" />
+                      <source src="/intro.mp4" type="video/mp4" />
                       Your browser does not support the video tag.
                     </motion.video>
+
+                    <button
+                      type="button"
+                      aria-label={
+                        isVideoPlaying && isVideoMuted
+                          ? "Enable sound"
+                          : isVideoPlaying
+                            ? "Pause video"
+                            : "Play video"
+                      }
+                      aria-pressed={isVideoPlaying && !isVideoMuted}
+                      onClick={() => {
+                        void toggleVideoPlayback();
+                      }}
+                      className="pointer-events-none absolute left-1/2 top-1/2 z-20 inline-flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-stone-100/40 bg-stone-950/68 text-stone-50 opacity-0 backdrop-blur-sm transition duration-200 hover:bg-stone-950/86 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100"
+                    >
+                      {isVideoPlaying && !isVideoMuted ? (
+                        <Pause className="h-6 w-6" />
+                      ) : (
+                        <Play className="h-6 w-6 ml-0.5" />
+                      )}
+                    </button>
                   </div>
                   <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-stone-400/10 -z-0" />
                   <div className="absolute top-1/2 -right-12 w-24 h-px bg-stone-400 transform -translate-y-1/2" />

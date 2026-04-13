@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, BadgeCheck, Building2, Mail, MessageSquare, Phone, UserRound } from "lucide-react";
+import { ArrowRight, BadgeCheck, Building2, LoaderCircle, Mail, MessageSquare, Phone, UserRound } from "lucide-react";
 
 import { SectionWave } from "@/components/stitch/section-wave";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,8 @@ export function ContactStrategyBriefPage() {
   const {
     register,
     onSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
+    isPending,
     submissionState,
   } = useContactBriefForm();
 
@@ -59,7 +60,24 @@ export function ContactStrategyBriefPage() {
                   <div className="relative overflow-hidden border border-outline-variant/35 bg-gradient-to-br from-surface-container-lowest via-surface-container-low to-surface-container-lowest p-8 md:p-12 shadow-[0px_24px_55px_rgba(45,52,53,0.08)]">
                     <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-tertiary/50 via-primary/60 to-tertiary/50" />
 
-                    <form onSubmit={onSubmit} className="space-y-8" noValidate>
+                    <form
+                      method="post"
+                      action="/contact/strategy-brief"
+                      onSubmit={onSubmit}
+                      className="space-y-8"
+                      noValidate
+                    >
+                      <div className="hidden" aria-hidden="true">
+                        <label htmlFor="website">Website</label>
+                        <input
+                          id="website"
+                          name="website"
+                          type="text"
+                          tabIndex={-1}
+                          autoComplete="off"
+                        />
+                      </div>
+
                       <div className="border-b border-outline-variant/25 pb-6">
                         <span className="font-label text-[10px] uppercase tracking-[0.18em] text-tertiary font-bold block mb-2">
                           Contact Brief Form
@@ -186,15 +204,32 @@ export function ContactStrategyBriefPage() {
                         type="submit"
                         variant="primary"
                         size="lg"
-                        disabled={isSubmitting}
+                        disabled={isPending}
                         className="group relative w-full md:w-auto px-10"
                       >
-                        {isSubmitting ? "Submitting" : "Start Growing with Rasa"}
-                        <ArrowRight className="ml-4 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        {isPending ? (
+                          <>
+                            <LoaderCircle className="mr-3 h-4 w-4 animate-spin" />
+                            Submitting...
+                          </>
+                        ) : (
+                          <>
+                            Start Growing with Rasa
+                            <ArrowRight className="ml-4 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                          </>
+                        )}
                       </Button>
 
                       {submissionState.visible ? (
-                        <p className="text-xs uppercase tracking-[0.12em] text-primary font-bold border-l-2 border-primary/40 pl-3 py-1">
+                        <p
+                          aria-live="polite"
+                          className={cn(
+                            "text-xs uppercase tracking-[0.12em] font-bold border-l-2 pl-3 py-1",
+                            submissionState.tone === "success"
+                              ? "text-primary border-primary/40"
+                              : "text-error border-error/45"
+                          )}
+                        >
                           {submissionState.message}
                         </p>
                       ) : null}

@@ -1,5 +1,4 @@
 import { Suspense, lazy } from "react";
-import type { Route } from "./+types/about-our-vision";
 
 import { RoutePageLoader } from "@/components/common/route-page-loader";
 import { buildSeoMeta } from "@/lib/seo";
@@ -10,7 +9,7 @@ const AboutOurVisionPage = lazy(() =>
   }))
 );
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return buildSeoMeta({
     title: "About | RASA Our Vision",
     description:

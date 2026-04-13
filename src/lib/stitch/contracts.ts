@@ -42,22 +42,17 @@ export type StitchContract = {
 };
 
 const architecturalNav: NavItem[] = [
-  { id: "projects", label: "Projects", to: "/projects" },
   { id: "services", label: "Services", to: "/services" },
-  { id: "about", label: "About", to: "/about" },
 ];
 
 const systemsNav: NavItem[] = [
   { id: "solutions", label: "Solutions", to: "/solutions" },
-  { id: "about", label: "About", to: "/about" },
   { id: "case-studies", label: "Case Studies", to: "/case-studies" },
   { id: "certification", label: "Certification", to: "/certification" },
 ];
 
 const inquiryNav: NavItem[] = [
-  { id: "projects", label: "Projects", to: "/projects" },
   { id: "services", label: "Services", to: "/services" },
-  { id: "about", label: "About", to: "/about" },
 ];
 
 const darkGridFooter: FooterContract = {
@@ -90,7 +85,7 @@ const darkGridFooter: FooterContract = {
       ],
     },
   ],
-  copy: "© 2024 RASA. The Architectural Standard.",
+  copy: "© 2026 RASA. The Architectural Standard.",
 };
 
 const lightGridFooter: FooterContract = {
@@ -121,7 +116,7 @@ const lightGridFooter: FooterContract = {
       ],
     },
   ],
-  copy: "© 2024 RASA Operations Consultancy. All rights reserved.",
+  copy: "© 2026 RASA Operations Consultancy. All rights reserved.",
 };
 
 const minimalBarFooter: FooterContract = {
@@ -129,7 +124,7 @@ const minimalBarFooter: FooterContract = {
   brand: "RASA ENGINEERING",
   description: "",
   groups: [],
-  copy: "© 2024 RASA Systems. All Rights Reserved. Engineered Excellence.",
+  copy: "© 2026 RASA Systems. All Rights Reserved. Engineered Excellence.",
 };
 
 export const navSets: Record<NavIdentity, NavItem[]> = {
@@ -144,7 +139,7 @@ export const stitchContracts: Record<StitchSignature, StitchContract> = {
     route: "/",
     nav: {
       identity: "architectural",
-      active: "projects",
+      active: "services",
       ctaLabel: "Get Started",
       ctaTo: "/contact/strategy-brief",
     },
@@ -177,7 +172,7 @@ export const stitchContracts: Record<StitchSignature, StitchContract> = {
     route: "/case-studies/proven-scale",
     nav: {
       identity: "architectural",
-      active: "projects",
+      active: "services",
       ctaLabel: "Get Started",
       ctaTo: "/contact/strategy-brief",
     },

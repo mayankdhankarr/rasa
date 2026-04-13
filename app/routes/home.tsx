@@ -12,7 +12,7 @@ const ArchitecturalHomePage = lazy(() =>
 
 export const links: Route.LinksFunction = () => [
   { rel: "preload", as: "image", href: "/roof.png" },
-  { rel: "preload", as: "image", href: "/counter-poster.jpg" },
+  { rel: "preload", as: "image", href: "/thumbnail.png" },
 ];
 
 export function meta({}: Route.MetaArgs) {
@@ -21,7 +21,7 @@ export function meta({}: Route.MetaArgs) {
     description:
       "RASA delivers the architectural blueprint for hospitality excellence through systems-level operational design.",
     path: "/",
-    image: "/counter-poster.jpg",
+    image: "/thumbnail.png",
   });
 }
 

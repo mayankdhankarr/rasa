@@ -1,7 +1,7 @@
 import { redirect } from "react-router";
 
 export async function loader() {
-  return redirect("/about/our-vision");
+  return redirect("/case-studies/proven-scale");
 }
 
 export default function SolutionsRoute() {

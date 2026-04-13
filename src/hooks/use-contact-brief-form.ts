@@ -1,58 +1,104 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { useFetcher } from "react-router";
 
-const contactBriefSchema = z.object({
-  name: z.string().min(2, "Name is required"),
-  businessName: z.string().min(2, "Business name is required"),
-  corporateEmail: z.email("Enter a valid corporate email"),
-  phoneNumber: z.string().min(7, "Phone number is required"),
-  inquiryDetails: z.string().min(24, "Please provide a brief challenge summary"),
-});
+import {
+  contactBriefFieldNames,
+  contactBriefSchema,
+  defaultContactBriefValues,
+  type ContactBriefActionData,
+  type ContactBriefValues,
+} from "@/lib/contact-brief";
 
-type ContactBriefValues = z.infer<typeof contactBriefSchema>;
-
-const defaultValues: ContactBriefValues = {
-  name: "",
-  businessName: "",
-  corporateEmail: "",
-  phoneNumber: "",
-  inquiryDetails: "",
+type SubmissionState = {
+  visible: boolean;
+  tone: "success" | "error";
+  message: string;
 };
 
 export function useContactBriefForm() {
   const [submittedAt, setSubmittedAt] = useState<number | null>(null);
+  const fetcher = useFetcher<ContactBriefActionData>();
 
   const form = useForm<ContactBriefValues>({
     resolver: zodResolver(contactBriefSchema),
-    defaultValues,
+    defaultValues: defaultContactBriefValues,
     mode: "onBlur",
   });
 
-  const onSubmit = form.handleSubmit(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 360));
-    setSubmittedAt(Date.now());
-    form.reset(defaultValues);
+  const onSubmit = form.handleSubmit((values) => {
+    const formData = new FormData();
+    formData.set("name", values.name);
+    formData.set("businessName", values.businessName);
+    formData.set("corporateEmail", values.corporateEmail);
+    formData.set("phoneNumber", values.phoneNumber);
+    formData.set("inquiryDetails", values.inquiryDetails);
+    formData.set("website", "");
+
+    fetcher.submit(formData, {
+      method: "post",
+      action: "/contact/strategy-brief",
+    });
   });
 
-  const submissionState = useMemo(() => {
-    if (!submittedAt) {
+  useEffect(() => {
+    const actionData = fetcher.data;
+    if (!actionData) {
+      return;
+    }
+
+    if (actionData.ok) {
+      setSubmittedAt(Date.now());
+      form.clearErrors();
+      form.reset(defaultContactBriefValues);
+      return;
+    }
+
+    setSubmittedAt(null);
+    form.clearErrors();
+
+    const serverFieldErrors = actionData.fieldErrors;
+    if (!serverFieldErrors) {
+      return;
+    }
+
+    for (const fieldName of contactBriefFieldNames) {
+      const message = serverFieldErrors[fieldName];
+      if (message) {
+        form.setError(fieldName, {
+          type: "server",
+          message,
+        });
+      }
+    }
+  }, [fetcher.data, form]);
+
+  const submissionState = useMemo<SubmissionState>(() => {
+    const actionData = fetcher.data;
+    if (!actionData) {
+      return { visible: false, tone: "success", message: "" };
+    }
+
+    if (actionData.ok && submittedAt) {
       return {
-        visible: false,
-        message: "",
+        visible: true,
+        tone: "success",
+        message: actionData.message,
       };
     }
 
     return {
       visible: true,
-      message: "Inquiry received. A consultant will respond within one business day.",
+      tone: "error",
+      message: actionData.message,
     };
-  }, [submittedAt]);
+  }, [fetcher.data, submittedAt]);
 
   return {
     ...form,
     onSubmit,
+    isPending: fetcher.state !== "idle" || form.formState.isSubmitting,
     submissionState,
   };
 }

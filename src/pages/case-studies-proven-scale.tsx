@@ -241,7 +241,7 @@ export function CaseStudiesProvenScalePage() {
                     <div className="flex justify-between items-start">
                       <h3 className="text-3xl font-headline font-bold">Velo Coffee</h3>
                       <div className="text-[10px] font-bold uppercase tracking-widest border border-outline px-2 py-1">
-                        2024
+                        2026
                       </div>
                     </div>
                     <p className="text-on-surface-variant">
@@ -277,7 +277,7 @@ export function CaseStudiesProvenScalePage() {
                   Ready to standardize?
                 </motion.h2>
                 <motion.p variants={itemVariants} className="text-on-surface-variant max-w-xl mx-auto mb-10">
-                  We are currently accepting new consultancy projects for Q3 and Q4 2024. Let&apos;s
+                  We are currently accepting new consultancy projects for Q3 and Q4 2026. Let&apos;s
                   discuss your operational architecture.
                 </motion.p>
                 <motion.div variants={itemVariants}>
